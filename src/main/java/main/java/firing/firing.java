@@ -2,6 +2,8 @@ package main.java.firing;
 
 import main.java.tree.Tree;
 
+import java.util.ArrayList;
+
 public class firing {
 
     public static Tree<String> toyTree() {
@@ -17,9 +19,9 @@ public class firing {
                         Tree<String> node7 = node6.addChild("Nephew", 100);
                     }
                 }
-                Tree<String> node4 = node2.addChild("Mary", 1);
+                Tree<String> node4 = node2.addChild("Mary", 100);
                 {
-                    Tree<String> node5 = node4.addChild("Rosemary", 100);
+                    Tree<String> node5 = node4.addChild("Rosemary", 1);
                 }
             }
         }
@@ -27,6 +29,7 @@ public class firing {
     }
 
     public static int maxValue(Tree<String> tree) {
+        // Have we already computed the answer?
         if (tree.getData() == 0) {
             // Are we a (terminal) leaf?
             if (!tree.hasChildren()) {
@@ -53,5 +56,27 @@ public class firing {
         return tree.getData();
     }
 
+    public static ArrayList<String> who(Tree<String> tree) {
+        int me = maxValue(tree);
+        int c = 0;
+        for (Tree<String> child : tree.getChildren()) {
+            c += maxValue(child);
+        }
+
+        ArrayList<String> out = new ArrayList<String>();
+        if (me > c) {
+            out.add(tree.name);
+            for (Tree<String> child : tree.getChildren()) {
+                for (Tree<String> grandchild : child.getChildren()) {
+                    out.addAll(who(grandchild));
+                }
+            }
+        } else {
+            for (Tree<String> child : tree.getChildren()) {
+                out.addAll(who(child));
+            }
+        }
+        return out;
+    }
 }
 
