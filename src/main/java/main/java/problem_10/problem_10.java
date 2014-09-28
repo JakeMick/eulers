@@ -1,7 +1,5 @@
 package main.java.problem_10;
 
-import main.java.primes.primes;
-
 import java.util.ArrayList;
 
 public class problem_10 {
@@ -11,15 +9,33 @@ public class problem_10 {
     Find the sum of all the primes below two million.
     142913828922
     */
-    public static int internal(int n) {
-        ArrayList<Integer> arr = primes.primes_below(n);
-        int out = 0;
-        for (int i = 0; i < arr.size(); i++)
-            out += arr.get(i);
-        return out;
+    public static long internal(int n) {
+        long ans = 0L;
+
+        if (n < 2) {
+            ans = 0L;
+        } else {
+            if (n == 2) {
+                ans = 2L;
+            } else {
+                ArrayList<Boolean> cache = new ArrayList<Boolean>(n + 1);
+                for (int i = 0; i < n; i++) {
+                    cache.add(true);
+                }
+                for (int i = 2; i < n; i++) {
+                    if (cache.get(i)) {
+                        ans += (long) i;
+                        for (int j = i; j < n; j += i) {
+                            cache.set(j, false);
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
     }
 
-    public static int ans() {
-        return internal(200);
+    public static long ans() {
+        return internal(2000000);
     }
 }

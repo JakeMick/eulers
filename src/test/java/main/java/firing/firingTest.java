@@ -13,14 +13,19 @@ public class firingTest {
     public void testMaxValue() {
         Tree<String> tree = firing.toyTree();
         int m = firing.maxValue(tree);
-        assertEquals(10201, m);
+        assertEquals(10102, m);
     }
 
     @Test
     public void testWho() {
         Tree<String> tree = firing.toyTree();
         ArrayList<String> out = firing.who(tree);
-        assertEquals("derp", out);
+        ArrayList<String> real = new ArrayList<String>(4);
+        real.add("Garfunkel");
+        real.add("Simon");
+        real.add("Nephew");
+        real.add("Rosemary");
+        assertEquals(real, out);
     }
 
 }

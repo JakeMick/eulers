@@ -38,14 +38,13 @@ public class firing {
                 // sum of children
                 int c = 0;
                 // sum of grandchildren
-                int g = 0;
+                int g = tree.value;
                 for (Tree<String> child : tree.getChildren()) {
                     c += maxValue(child);
                     for (Tree<String> grandchild : child.getChildren()) {
                         g += maxValue(grandchild);
                     }
                 }
-                g += tree.value;
                 if (g > c) {
                     tree.setData(g);
                 } else {
